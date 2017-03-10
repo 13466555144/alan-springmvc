@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- configuration file for LogBack (slf4J implementation)
+See here for more details: http://gordondickens.com/wordpress/2013/03/27/sawing-through-the-java-loggers/ -->
+<configuration scan="true" scanPeriod="30 seconds">
+      <property name="APP_NAME" value="acbigdata" />
+      <property name="LOG_PATH" value="/export/logs" />
+     <!--  <property name="LOG_PATH" value="e:\\bigdata\\logs" /> -->
+    <!--Appendar详解: http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+	    <encoder>
+	      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+	    </encoder>
+	</appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
+

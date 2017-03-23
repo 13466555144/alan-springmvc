@@ -38,4 +38,32 @@
     <tx:annotation-driven transaction-manager="transactionManager" />
     <!-- 配置Spring Data JPA扫描目录 -->
     <jpa:repositories base-package="com.alan.springmvc" />
+    
+    <bean id="httpClient" class="springData.controller.HttpClientUtil" factory-method="acceptsUntrustedCertsHttpClient"/>
+
+    <bean id="clientHttpRequestFactory" class="org.springframework.http.client.HttpComponentsClientHttpRequestFactory">
+        <constructor-arg ref="httpClient"/>
+    </bean>
+
+    <bean id="restTemplate" class=" org.springframework.web.client.RestTemplate">
+        <constructor-arg ref="clientHttpRequestFactory" />
+        <property name="messageConverters">
+	        <list value-type="org.springframework.http.converter.HttpMessageConverter">
+	            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+	                <property name="supportedMediaTypes">
+	                    <value>text/html;charset=UTF-8</value>
+	                </property>
+	            </bean>
+	            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	                <property name="supportedMediaTypes">
+	                    <value>application/json;charset=UTF-8</value>
+	                </property>
+	            </bean>
+	            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+	            <bean class="org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter"/>
+	            <bean class="org.springframework.http.converter.FormHttpMessageConverter"/>
+	        </list>
+    </property>
+    </bean>
+    
 </beans>
